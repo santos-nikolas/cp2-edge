@@ -11,7 +11,8 @@ Este código, desenvolvido para o microcontrolador Arduino, utiliza um sensor de
 * 1 arduíno UNO R3
 * 1 protoboard
 * 25 jumper cables
-* 5 resistores de 220 ohms
+* 4 resistores de 220 ohms
+* 1 resistor de 10k ohms
 * 3 leds (um vermelho, um amarelo e um verde)
 * 1 sensor LDR
 * 1 sensor DHT11
@@ -30,6 +31,7 @@ Este código, desenvolvido para o microcontrolador Arduino, utiliza um sensor de
 * Pino 4: LCD (D6)
 * Pino 3: LCD (D7)
 * Pino 2: LCD (LED+)
+* Pino 13: DHT11
 ### Funções
 * setup(): Configura os pinos e inicializa o display LCD.
 * loop(): Executa repetidamente as funções iluminacao(), temp() e umid() para monitorar continuamente as condições ambientais.
