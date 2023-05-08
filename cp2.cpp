@@ -1,9 +1,11 @@
+//Adicionando as bibliotecas
 #include <dht.h>
 #include <LiquidCrystal.h>
 
+//Pinos utilizados para controlar o lcd
 LiquidCrystal lcd(12, 11, 10, 5, 4, 3, 2);
 
-
+//Definindo as portas
 #define LED_VERMELHO 8 
 #define LED_AMARELO  7
 #define LED_VERDE    6
@@ -12,7 +14,8 @@ LiquidCrystal lcd(12, 11, 10, 5, 4, 3, 2);
 #define DHT      13
 
 dht meu_dht;
- 
+
+//Definindo Variáveis 
 float temperatura = 0;
 float umidade = 0;
 
@@ -31,6 +34,7 @@ void loop()
   umid();
 } 
 
+//Criando uma função para controlar os pinos
 void pinos ()
 {
   pinMode(LED_VERMELHO, OUTPUT);
@@ -40,10 +44,11 @@ void pinos ()
   pinMode(BUZZER, OUTPUT);
 }
 
+//Criando uma função para controlar a iluminação 
 void iluminacao()
 {
   
-// leitura do LDR 5 vezes:
+//Leitura do LDR 5 vezes em 5 segundos:
   int somaLdr = 0;
   for (int i = 0; i < 5; i++) 
   {  
@@ -51,10 +56,10 @@ void iluminacao()
     delay(1000);
   }
   
-// calcula media dos dados:
+//Calcula média dos dados:
   int mediaLdr = somaLdr / 5;
   
-// iluminacao OK:
+//Iluminação OK:
   if(mediaLdr < 105)
   {
     digitalWrite(LED_VERDE, HIGH);
@@ -67,7 +72,7 @@ void iluminacao()
     digitalWrite(BUZZER, LOW);
   }
   
-// iluminacao MEIA LUZ:  
+//Iluminação MEIA LUZ:  
   else if (mediaLdr >= 105 && mediaLdr <= 210) 
   {
     digitalWrite(LED_VERDE, LOW);
@@ -79,7 +84,7 @@ void iluminacao()
     lcd.print("MEIA LUZ                ");
   }
   
-// iluminacao MUITO CLARO:
+//Iluminação MUITO CLARO:
     else {
     digitalWrite(LED_VERDE, LOW);
     digitalWrite(LED_AMARELO, LOW);
@@ -93,10 +98,11 @@ void iluminacao()
     Serial.println(mediaLdr);
 }
 
+//Criando uma variável para controlar a temperatura 
 void temp()
 {
   
-// leitura temperatura DHT 5 vezes:
+//Leitura temperatura DHT 5 vezes em 5 segundos:
   meu_dht.read11(DHT);
   temperatura = meu_dht.temperature;
   int somaTemp = 0;
@@ -106,10 +112,10 @@ void temp()
     delay(1000);
   }
   
-// calcula media dos dados:
+//Calcula media dos dados:
   int mediaTemp = somaTemp / 5;
 
-// temperatura OK:
+//Temperatura OK:
   if(mediaTemp >= 10 && mediaTemp <= 15)
   {
       lcd.setCursor(0,0);
@@ -120,7 +126,7 @@ void temp()
       lcd.print(mediaTemp);
   }
   
-// temperatura ALTA:
+//Temperatura ALTA:
   else if(mediaTemp > 15)
   {
     digitalWrite(LED_VERDE, LOW);
@@ -135,7 +141,7 @@ void temp()
     lcd.print(mediaTemp);
   }
 
-// temperatura BAIXA:
+//Temperatura BAIXA:
   else 
   {
     digitalWrite(LED_VERDE, LOW);
@@ -152,10 +158,11 @@ void temp()
   Serial.println(mediaTemp);
 }
 
+//Criando uma variável para controlar a umidade 
 void umid()
 {
   
-// leitura umidade DHT 5 vezes:
+//Leitura umidade DHT 5 vezes em 5 segundos:
   meu_dht.read11(DHT);
   umidade = meu_dht.humidity;
   int somaUmid = 0;
@@ -164,10 +171,10 @@ void umid()
     somaUmid += meu_dht.humidity;
     delay(1000);
   }
-// Calcula media dos dados:
+//Calcula media dos dados:
   int mediaUmid = somaUmid / 5;
 
-// umidade OK:
+//Umidade OK:
   if(mediaUmid >= 50 && mediaUmid <= 70)
   {
       digitalWrite(LED_VERDE, HIGH);
@@ -182,7 +189,7 @@ void umid()
       lcd.print(mediaUmid);
   }
   
-// umidade ALTA:
+//Umidade ALTA:
   else if(mediaUmid > 70)
   {
     digitalWrite(LED_VERDE, LOW);
@@ -197,7 +204,7 @@ void umid()
     lcd.print(mediaUmid);
   }
   
-// umidade BAIXA:
+//Umidade BAIXA:
   else 
   {
     digitalWrite(LED_VERDE, LOW);
