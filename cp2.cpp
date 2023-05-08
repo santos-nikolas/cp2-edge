@@ -1,11 +1,8 @@
 #include <dht.h>
 #include <LiquidCrystal.h>
 
- 
-
 LiquidCrystal lcd(12, 11, 10, 5, 4, 3, 2);
 
- 
 
 #define LED_VERMELHO 8 
 #define LED_AMARELO  7
@@ -14,29 +11,10 @@ LiquidCrystal lcd(12, 11, 10, 5, 4, 3, 2);
 #define LDR          A0
 #define DHT      13
 
- 
-
 dht meu_dht;
  
-
- 
-
 float temperatura = 0;
 float umidade = 0;
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
 
 void setup()
 {
@@ -44,9 +22,7 @@ void setup()
   lcd.begin(16,2);              
   lcd.clear();                        
   Serial.begin(9600);
-}
-
- 
+} 
 
 void loop()
 {
@@ -54,9 +30,6 @@ void loop()
   temp();
   umid();
 } 
-
- 
-
 
 void pinos ()
 {
@@ -66,10 +39,6 @@ void pinos ()
   pinMode(LDR, INPUT);
   pinMode(BUZZER, OUTPUT);
 }
-
- 
-
- 
 
 void iluminacao()
 {
@@ -124,20 +93,6 @@ void iluminacao()
     Serial.println(mediaLdr);
 }
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
 void temp()
 {
   
@@ -154,9 +109,6 @@ void temp()
 // calcula media dos dados:
   int mediaTemp = somaTemp / 5;
 
- 
-
- 
 // temperatura OK:
   if(mediaTemp >= 10 && mediaTemp <= 15)
   {
@@ -183,8 +135,6 @@ void temp()
     lcd.print(mediaTemp);
   }
 
- 
-
 // temperatura BAIXA:
   else 
   {
@@ -202,20 +152,6 @@ void temp()
   Serial.println(mediaTemp);
 }
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
 void umid()
 {
   
@@ -228,14 +164,8 @@ void umid()
     somaUmid += meu_dht.humidity;
     delay(1000);
   }
-
- 
-
-// alcula media dos dados:
+// Calcula media dos dados:
   int mediaUmid = somaUmid / 5;
-    
-
- 
 
 // umidade OK:
   if(mediaUmid >= 50 && mediaUmid <= 70)
